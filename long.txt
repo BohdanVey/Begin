@@ -1,0 +1,32 @@
+#include <conio.h> 
+#include <iostream>
+#include <cstdio>  
+using namespace std;
+int main() {
+      char a[100];
+      int n_a,n_b;
+      char n;
+      char c[100];
+		int ca[101];
+		int cb[101];
+      scanf("%s", a);
+      char b[100];
+      scanf("%s", b);
+      n_a=strlen(a);
+      n_b=strlen(b);
+	for(int i=0;i<n_a;i++){
+		ca[100-i]=int(a[n_a-i-1])-int('0');
+		
+	}
+	cout<<endl;
+	for(int i=0;i<n_b;i++){
+		cb[100-i]=int(b[n_b-i])-int('0');
+	
+	
+	}
+	for(int i=101-n_a;i<101;i++){
+	cout<<ca[i];
+	
+	}
+	 cin>>n_a;
+}
