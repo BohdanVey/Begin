@@ -1,0 +1,33 @@
+#include <conio.h> 
+#include <iostream>
+#include <cstdio>  
+using namespace std;
+void strtomasiv(char *str, int *T)
+{
+	int i;
+
+	T[0] = strlen(str); 
+for (i = 0; i < T[0]; i++)
+{
+				T[T[0] - i] = str[ i] -'0';
+}
+}
+void out1(int *T)
+{
+  int i, j, p;
+
+for (i = T[0]; i > 0; i--)
+  {
+  	cout << T[i];
+  }
+  
+  cout << endl;
+}
+void main(){
+	int a[100];
+	char str[100];
+	scanf("%s", str);
+	strtomasiv(str,a);
+	out1(a);
+	cin>>str;
+}
