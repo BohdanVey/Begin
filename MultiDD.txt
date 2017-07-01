@@ -1,0 +1,117 @@
+#include <conio.h> 
+#include <iostream>
+#include <cstdio>  
+using namespace std;
+void multDD(int *T1, int *T2, int *T3)
+{
+    int i, j, p = 0, R =10;
+
+    for (i = 1; i <= T2[0]; i++)
+    {
+        for (j = 1; j <= T1[0]; j++)
+        {
+            int temp = (T2[i] * T1[j]) + p + T3[j + i - 1];
+
+            T3[i + j - 1] = temp % R;
+
+            p = temp / R;
+        }
+
+        T3[i + j - 1] = p;
+        
+        p = 0;
+    }
+
+    int n = T2[0] + T1[0] - 1;
+
+    while (p > 0)
+    {
+        T3[n] = p % R;
+        p /= R;
+        n++;
+    }
+
+    if (T3[n + 1] > 0)
+        T3[0] = n + 1;
+    else
+        T3[0] = n;
+}
+void mult(int *T, int k)
+{
+int p=0;
+for(int i=1;i<=T[0];i++){
+	T[i]=T[i]*k+p;
+	p=T[i]/10;
+	T[i]=T[i]%10;
+}
+while (p > 0)
+	{
+		T[0]++;
+		T[T[0]] = p % 10;
+		p /= 10;
+	}
+}
+void add(int *T1, int *T2, int* T3) 
+{
+    int n = (T1[0] > T2[0]) ? T1[0] : T2[0];
+	int p = 0, i, R =10;
+
+    for (i = 1; i <= n; i++)
+    {
+        int temp = T1[i] + T2[i] + p;
+		T3[i] = temp % R; 
+        p = temp / R; 
+    }
+    
+    if (p > 0) 
+    {
+    	n++; 
+    	T3[n] = p; 
+    }
+    
+    T3[0] = n;
+}
+void strtomasiv(char *str, int *T)
+{
+	int i;
+
+	T[0] = strlen(str); 
+for (i = 0; i < T[0]; i++)
+{
+				T[T[0] - i] = str[ i] -'0';
+}
+}
+void out1(int *T)
+{
+  int i, j, p;
+
+for (i = T[0]; i > 0; i--)
+  {
+  	cout << T[i];
+  }
+  
+  cout << endl;
+}
+void main(){
+	int a[100];
+	int b[100];
+	int c[100];
+	int d[100];
+	for(int i=0;i<100;i++){
+		a[i]=0;
+		b[i]=0;
+		c[i]=0;
+		d[i]=0;
+	}
+	char str[100],st[100];
+	scanf("%s", str);
+	strtomasiv(str,a);
+	
+	scanf("%s", st);
+	strtomasiv(st,b);
+	
+
+multDD(a,b,d);
+out1(d);
+cin>>str;
+}
