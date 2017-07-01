@@ -1,0 +1,82 @@
+#include <conio.h> 
+#include <iostream>
+#include <cstdio>  
+using namespace std;
+int R=10;
+void mult(int *T1, int k)
+{
+	int i, p = 0, R = 10;
+
+	for (i = 1; i <= T1[0]; i++)
+	{
+		int temp = (T1[i] * k) + p;
+		T1[i] = temp % R;
+		p = temp / R;
+	}
+
+	while (p > 0)
+	{
+		T1[0]++;
+		T1[T1[0]] = p % R;
+		p /= R;
+	}
+}
+void add(int *T1, int *T2, int* T3) 
+{
+    int n = (T1[0] > T2[0]) ? T1[0] : T2[0];
+	int p = 0, i, R =10;
+
+    for (i = 1; i <= n; i++)
+    {
+        int temp = T1[i] + T2[i] + p;
+		T3[i] = temp % R; 
+        p = temp / R; 
+    }
+    
+    if (p > 0) 
+    {
+    	n++; 
+    	T3[n] = p; 
+    }
+    
+    T3[0] = n;
+}
+void strtomasiv(char *str, int *T)
+{
+	int i;
+
+	T[0] = strlen(str); 
+for (i = 0; i < T[0]; i++)
+{
+				T[T[0] - i] = str[ i] -'0';
+}
+}
+void out1(int *T)
+{
+  int i, j, p;
+
+for (i = T[0]; i > 0; i--)
+  {
+  	cout << T[i];
+  }
+  
+  cout << endl;
+}
+void main(){
+	int a[100];
+	int b[100];
+	int c[100];
+	char str[100],st[100];
+	scanf("%s", str);
+	strtomasiv(str,a);
+	out1(a);
+	scanf("%s", st);
+	strtomasiv(st,b);
+	out1(b);
+
+add(a,b,c);
+out1(c);
+mult(a,5);
+out1(a);
+cin>>str;
+}
