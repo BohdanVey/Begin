@@ -1,0 +1,50 @@
+// Example program
+#include <iostream>
+#include <string>
+using namespace std;
+int root(int a[],int i){
+ while(i!=a[i]){
+     a[i]=a[a[i]];
+     i=a[i];
+ }
+    return i;
+}
+void quickunion(int a[],int sz[],int p,int q){
+ int i=root(a,p);
+ int j=root(a,q);
+ if (i==j){
+  
+ }
+ else{
+ if (sz[i]>sz[j]){
+  sz[j]+=sz[i];
+  a[i]=j;
+ }
+ else{
+  sz[i]+=sz[j];
+  a[j]=a[i];
+ }
+}
+}
+int connected(int a[],int p,int q){
+	return root(a,p)==root(a,q);
+}
+int main(){
+    
+ int a[100];
+ int sz[100];
+ int n=10;
+ for(int i=0;i<n;i++){
+    a[i]=i;
+    sz[i]=1;
+ }
+ quickunion(a,sz,0,5);
+quickunion(a,sz,5,6);
+quickunion(a,sz,1,2);
+quickunion(a,sz,1,7);
+quickunion(a,sz,8,3);
+quickunion(a,sz,3,4);
+quickunion(a,sz,4,9);
+cout<<connected(a,0,5);
+cout<<connected(a,1,9);
+}
