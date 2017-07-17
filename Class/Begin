@@ -1,0 +1,53 @@
+/*
+class name : public name 2
+name наслідує(Має всі функції) name 2
+*/
+#include <iostream>
+#include <string>
+using namespace std;
+class Human
+{
+ public:
+    string name;
+    int age;
+    int force=10;
+    
+    void eat(){
+     force+=2;   
+    }
+    void sleep(){
+     force+=2;   
+    }
+    void info(){
+    cout<<name<<" "<<age<<" "<<force<<endl;  
+    }
+};
+class Builder :public Human
+{
+ public:
+ void build(){
+  force--;   
+ }
+};
+class Doctor :public Human
+{
+ public:
+ void threat(){
+  force--;   
+  cout<<"AAAAA";
+ }
+};
+class Grandma :public Human
+{
+ public:
+ void cook(){
+  force--;   
+  cout<<"Br";
+ }
+};
+int main()
+{
+Doctor a;
+cin>>a.name>>a.age;
+a.info();
+}
