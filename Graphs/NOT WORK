@@ -1,0 +1,82 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+using namespace std;
+int n,start,m,p,d,q;
+
+vector<int> D,visited,k;//prime-звідки,mark=чи вже проходили
+   
+    vector<vector<int >> w,fd;
+vector<int> Di(int st){
+    fd[start].push_back(start);
+    int mini=n+1;
+    k.resize(n);
+    k[st]=0;
+    visited[st]=true;
+    for(int i=0;i<n;i++){
+         D[i]=w[st][i];
+    }
+     int index=0,u=0;
+     for (int i=0;i<n;i++)
+    {
+        int mini=6000000;
+        for (int j=0;j<n;j++){
+            if(visited[j]==false){
+         if(D[j]>D[i]+w[i][j]){
+          D[j]=D[i]+w[i][j];
+          fd[j].resize(fd[i].size());
+          for(int q=0;q<fd[i].size();q++){
+              cout<<fd[i][0]<<" ";
+              fd[j][q]=fd[i][q];
+          }
+          fd[j].push_back(j);
+         }
+         
+        
+         if(D[j]<mini){
+             mini=D[j];
+             u=j;
+         }
+            }
+        }
+        visited[u]=true;
+        k[u]=D[u];
+        
+}
+
+return k;
+}   
+int main()
+{
+    int finish;
+cin>>n>>m>>start>>finish;
+D.resize(n);
+fd.resize(n);
+start--;
+finish--;
+visited.resize(n);
+w.resize(n);
+for(int i=0;i<n;i++){
+    visited[i]=false;
+    w[i].resize(n);
+    for(int j=0;j<n;j++){
+        w[i][j]=6000000;
+    }
+}
+for(int i=0;i<m;i++){
+   cin>>p>>d>>q;
+   p--;
+   d--;
+   w[p][d]=q;
+   w[d][p]=q;
+}
+
+k=Di(start);
+cout<<start+1<<" ";
+for(int i=0;i<fd[finish].size();i++){
+    cout<<fd[finish][i]+1<<" ";
+}
+cout<<finish+1<<" ";
+
+}
