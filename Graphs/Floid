@@ -1,0 +1,63 @@
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+int finish,start,n,f,h,k;
+vector<vector<int>>floyd(vector<vector<int>> b,vector<vector<int>> c){
+	for(int i=0;i<n;i++){
+		for(int j=0;j<n;j++){
+			if(i!=j){
+			c[i][j]=b[i][j];
+			}
+			else{
+				c[i][j]=0;
+			}
+		}
+	}
+	for(int k=0;k<n;k++){
+	for(int i=0;i<n;i++){
+		for(int j=0;j<n;j++){
+			c[i][j]=min(c[i][j],c[i][k]+c[k][j]);
+		}
+	}
+	}
+return c;
+}
+vector<vector<int>> edges,a;
+int main()
+{
+cin>>n>>k;
+int m;
+edges.resize(n);
+a.resize(n);
+for(int i=0;i<n;i++){
+	edges[i].resize(n);
+	a[i].resize(n);
+}
+	for(int i=0;i<n;i++){
+	for(int j=0;j<n;j++){
+		if(i==j){
+			edges[i][j]=0;
+		}
+		else{
+	edges[i][j]=10000000;
+		}
+}
+	}
+
+for(int i=0;i<k;i++){
+    cin>>f>>h>>m;
+    f--;
+    h--;
+    edges[f][h]=m;
+}
+
+a=floyd(edges,a);
+for(int i=0;i<n;i++){
+	cout<<endl;
+	for(int j=0;j<n;j++){
+		cout<<a[i][j]<<" ";
+	}
+}
+cin>>k;
+}
