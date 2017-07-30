@@ -24,5 +24,5 @@ int main(){
 int a,n;
 cin>>n;
 cout<<booth(n);
-cin>>a;
+
 }
