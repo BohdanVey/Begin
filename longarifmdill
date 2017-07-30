@@ -1,0 +1,114 @@
+#include<iostream>
+#include<vector>
+#include<algorithm>
+#include<math.h>
+#include <stdio.h>
+
+using namespace std;
+const int base = 1000*1000*1000;
+vector<int> a,b;
+char s[10000];
+vector<int> in(vector<int> a){
+	cin>>s;
+for(int i=strlen(s);i>0;i-=9){
+	s[i]=0;
+	a.push_back(atoi(i>=9 ? s+i-9 : s));
+}
+return a;
+}
+vector<int> multydd(vector<int> a,vector<int> b){
+	int carry=0;
+	vector<int> c;
+	c.resize(a.size()+b.size());
+	for(int i=0;i<a.size();i++){
+		for(int j=0;j<b.size()||carry;j++){
+			long long cur=c[i+j]+carry+a[i]*(j<b.size() ? b[i]:0);
+			c[i+j]=cur%base;
+			carry=cur/base;
+	}	
+	}
+	while(c.size()>1 && c.back()==0){
+		c.pop_back();
+	}
+	return c;
+}
+vector<int> multy(vector<int> a,int b){
+	int carry=0;
+	for(int i=0;i<a.size() || carry;i++){
+		if(i==a.size()){
+			a.push_back(0);
+		}
+		long long cur=carry+a[i]*b;
+		a[i]=cur%base;
+		carry=cur/base;
+	}
+	while (a.size() > 1 && a.back() == 0)
+	a.pop_back();
+	return a;
+}
+vector<int> minu(vector<int> a,vector<int> b){
+	int carry=0;
+	for(int i=0;i<b.size() || carry;i++){
+		a[i] -= carry + (i < b.size() ? b[i] : 0);
+	carry = a[i] < 0;
+	if (carry)  a[i] += base;
+	}
+	while (a.size() > 1 && a.back() == 0)
+	a.pop_back();
+	return a;
+}
+vector<int> dil(vector<int> a,int b){
+	int carry=0;
+	for(int i=a.size()-1;i>=0;i--){
+		long long cur=carry*base+a[i];
+		a[i]=cur/b;
+		carry=cur%b;
+	}
+	while(a.size()>0 && a.back()==0){
+		a.pop_back();
+	}
+	return a;
+
+}
+vector<int> add(vector<int> a,vector<int> b){
+	int carry=0;
+	for(int i=0;i<max(a.size(),b.size()) || carry;i++){
+		if(i==a.size()){
+			a.push_back(0);
+		}
+		a[i]+=carry+(i<b.size() ? b[i]:0);	
+		carry=a[i]>=base;
+		if(carry) a[i]-=base;
+	}
+		return a;
+}
+void out(vector<int> a){
+	printf ("%d", a.empty() ? 0 : a.back());
+for (int i=(int)a.size()-2; i>=0; --i)
+	printf ("%09d", a[i]);
+	}
+
+int main(){
+a=in(a);
+out(a);
+b=in(b);
+out(b);
+cout<<endl;
+a=add(a,b);
+out(a);
+cout<<endl;
+b=minu(a,b);
+int n;
+cin>>n;
+a=multy(a,n);
+out(b);
+cout<<endl;
+out(a);
+a=multydd(a,b);
+cout<<endl;
+out(a);
+a=dil(a,n);
+cout<<endl;
+out(a);
+cin>>s[0];
+}
