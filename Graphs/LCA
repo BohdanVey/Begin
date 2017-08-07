@@ -1,0 +1,59 @@
+// Example program
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+int timer=0;
+int l,n;
+vector<vector<int>>g,up;
+vector<int> tin,tout;
+int dfs(int v,int p=0){
+    tin[v]=++timer;
+ p=up[v][0];
+ for(int i=1;i<=l;i++){
+     up[v][i]=up[up[v][i-1]][i-1];
+ }
+  for(int i=0;i<g[v].size();i++){
+      if(!g[v][i]!=p){
+  dfs(g[v][i],v);
+      }
+ }
+
+ tout[v]=++timer;
+}
+
+bool upper(int a,int b){
+ return tin[a]<=tin[b] && tout[a]>=tout[b];   
+}
+int lca(int a,int b){
+ if(upper(a,b)) return a;
+ if(upper(b,a)) return b;
+ for(int i=l;i>=0;i--){
+  if (! upper (up[a][i], b))
+			a = up[a][i];   
+ }
+ return up[a][0];
+}
+
+
+int main()
+{
+    int m,p,d;
+  std::cin>>n>>m;
+  tin.resize (n),  tout.resize (n),  up.resize (n);
+  g.resize(n);
+  for(int i=0;i<m;i++){
+   std::cin>>p>>d;
+   p--;
+   d--;
+   g[p].push_back(d);
+  }
+	while ((1<<l) <= n)  ++l;
+	for (int i=0; i<n; ++i)  up[i].resize (l+1);
+	dfs(0);
+	int a,b;
+	std::cin>>a>>b;
+	a--;
+	b--;
+	std::cout<<lca(a,b);
+}
