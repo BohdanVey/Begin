@@ -1,0 +1,82 @@
+// Example program
+#include <iostream>
+#include <string>
+#include<vector>
+using namespace std;
+vector<long long> t;
+long long sum(int v,int vl,int vr,int l,int r){
+ if (r<vl || vr<l)
+  return 0;  
+ if(vl>=l && r>=vr)
+  return t[v];
+     int vs=vl+(vr-vl)/2;
+long long d=sum(2*v+1,vl,vs,l,r);
+long long m=sum(2*v+2,vs+1,vr,l,r);
+  return d+m;
+ 
+}
+void b(int v,int vl,int vr,vector<int> a){
+ if(vl==vr){
+    t[v]=a[vl]; 
+ }
+ else{
+     int vs=vl+(vr-vl)/2;
+     b(2*v+1,vl,vs,a);
+    b(2*v+2,vs+1,vr,a); 
+  t[v]=t[2*v+1]+t[2*v+2];
+ }
+}
+void modify(int v,int vl,int vr,int pos,int val){
+ if(vl==vr){ 
+ t[v]=val;
+ 
+ return;
+ }
+ int vm=vl+(vr-vl)/2;
+
+ if(pos<=vm){
+   modify(2*v+1,vl,vm,pos,val);
+ }
+ else{
+   modify(2*v+2,vm+1,vr,pos,val);
+ }
+ t[v]=t[2*v+1]+t[2*v+2];
+
+ }
+ 
+
+int main(){
+  int n,k;
+  cin>>n;
+ char query;
+  vector<int>a(n,0);
+  for(int i=0;i<n;i++){
+   cin>>a[i]; 
+
+  }
+
+    t.resize(4*n);
+    
+   b(0,0,n-1,a);
+   cin>>k;
+   vector<int>c;
+
+   for(int i=0;i<k;i++){
+   int l,r;
+   cin>>query;
+  
+   cin>>l>>r;
+   l--;
+   r--;
+   if(query=='s'){
+   cout<<sum(0,0,n-1,l,r)<<" ";
+  
+   }
+   else{
+  
+    modify(0,0,n-1,l,r+1); 
+   }
+   }
+  
+   
+    }
