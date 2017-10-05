@@ -1,0 +1,27 @@
+// Example program
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <cmath>
+using namespace std;
+  struct po{
+   int x;
+   int y;
+  };
+int main()
+{
+    int n;
+    cin>>n;
+    vector<po> p;
+  p.resize(n);
+  for(int i=0;i<n;i++){
+   cin>>p[i].x>>p[i].y;   
+  }
+  sort(p.begin(),p.end(),[](const po &left,const po &right){
+   if(left.y!=right.y){
+    return left.y<right.y;   
+   }
+   return left.x<right.x;
+  });
+  }
