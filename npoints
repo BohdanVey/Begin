@@ -37,7 +37,7 @@ double dx=-1,dy=0;
   int cur=0;
   vid.push_back(cur);
   while(true){
-   int next=n+1;
+   int next=-1;
    double bestcos=-99;
   for(int i=0;i<n;i++){
   double cosi;
