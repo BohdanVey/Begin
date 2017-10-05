@@ -1,0 +1,78 @@
+// Example program
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <cmath>
+using namespace std;
+  struct po{
+   int x;
+   int y;
+  };
+int main()
+{
+    int n;
+    cin>>n;
+    vector<po> p;
+    vector<int> vid;
+  p.resize(n);
+  for(int i=0;i<n;i++){
+   cin>>p[i].x>>p[i].y;   
+  }
+  sort(p.begin(),p.end(),[](const po &left,const po &right){
+   if(left.y!=right.y){
+    return left.y<right.y;   
+   }
+   return left.x<right.x;
+  });
+  p.erase(unique(p.begin(),p.end(),[](const po &left,const po &right){
+  return left.x==right.x && left.y==right.y;
+}),p.end());
+n=p.size();
+if(n==1){
+cout<<0;
+return 0;
+}
+int next;
+double dx=-1,dy=0;
+  int cur=0;
+  vid.push_back(cur);
+  while(true){
+   int next=n+1;
+   double bestcos=-99;
+  for(int i=0;i<n;i++){
+  double cosi;
+  if(i!=cur){
+    int ndx=p[i].x-p[cur].x;
+    int ndy=p[i].y-p[cur].y;
+    cosi=(dx*ndx+dy*ndy)/sqrt(ndx*ndx+ndy*ndy) ;
+  
+  if(cosi>bestcos){
+    next=i;
+    bestcos=cosi;
+  }
+  }
+  }
+  dx=p[next].x-p[cur].x;
+  dy=p[next].y-p[cur].y;
+  double len=sqrt(dx*dx+dy*dy);
+  dx/=len;
+  dy/=len;
+  cur=next;
+  
+  if(cur==0){
+  vid.push_back(cur);
+  break;
+    
+  }
+    vid.push_back(cur);
+
+ 
+  }
+    
+  
+  
+    for(int i=0;i<vid.size();i++){
+     cout<<p[vid[i]].x<<" "<<p[vid[i]].y<<endl;
+    }
+  
+  }
